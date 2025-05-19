@@ -32,7 +32,7 @@ export default function Home() {
       toast({
         title: "Entry saved",
         description: "Your mood entry has been saved successfully.",
-        variant: "success",
+        variant: "default",
       });
     },
     onError: (error) => {

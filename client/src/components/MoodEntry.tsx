@@ -1,13 +1,18 @@
-import { LocalMoodEntry } from "@shared/schema";
+import { MoodEntry as MoodEntryType } from "@shared/schema";
 import { formatRelativeDate } from "@/lib/utils";
 import { getMoodColor } from "@/lib/moodData";
 
 interface MoodEntryProps {
-  entry: LocalMoodEntry;
+  entry: MoodEntryType;
 }
 
 export default function MoodEntry({ entry }: MoodEntryProps) {
   const borderColor = getMoodColor(entry.moodName);
+  
+  // Format created_at timestamp to string for formatting
+  const createdAtStr = typeof entry.createdAt === 'string' 
+    ? entry.createdAt 
+    : entry.createdAt.toISOString();
   
   return (
     <div className={`border-l-4 ${borderColor} pl-4 py-2 entry-appear`}>
@@ -17,7 +22,7 @@ export default function MoodEntry({ entry }: MoodEntryProps) {
           <div>
             <div className="font-medium text-gray-900">{entry.moodName}</div>
             <div className="text-sm text-gray-500">
-              {formatRelativeDate(entry.createdAt)}
+              {formatRelativeDate(createdAtStr)}
             </div>
           </div>
         </div>
